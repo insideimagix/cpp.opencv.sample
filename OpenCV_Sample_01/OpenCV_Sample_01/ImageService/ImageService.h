@@ -1,27 +1,27 @@
 #pragma once
 
-#include <opencv2/opencv.hpp>
 #include <iostream>
-
-#include "ImageType.h"
+#include "../WindowService/WindowService.h"
+#include "../CommonType.h"
 
 using namespace std;
 using namespace cv;
 
-class ImageService
+class ImageService : public WindowService
 {
 public:
 	ImageService();
-	~ImageService();
+	~ImageService() final;
 
-	bool OpenImage(const string& _fileName, const ecOpenFlag _openFlag);
-	bool ShowImage(const string& _windowsName, const ecWindowFlag _showFlag);
+	bool			OpenImage(const string& _fileName, const ecOpenFlag _openFlag);
+	bool			ShowImage(const string& _windowName, const ecWindowFlag _showFlag);
+
+	bool			GetBufferInfo(stBufferInfo& _info) const;
+	bool			GetBuffer(uint8_t* _pBuffer);
 
 private:
-	int ConvertOpenFlag(const ecOpenFlag _openFlag) const;
-	int ConvertWindowsFlag(const ecWindowFlag _windowFlag) const;
+	int				ConvertOpenFlag(const ecOpenFlag _openFlag) const;
 
-	Mat m_cvImage;
-	string m_windowName;
+	Mat				m_cvImage;
 };
 

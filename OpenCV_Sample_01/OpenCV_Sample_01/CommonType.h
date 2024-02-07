@@ -16,3 +16,20 @@ enum class ecWindowFlag {
 	MAX,
 };
 
+struct stBufferInfo {
+	int width;
+	int height;
+	int channels;
+	int imageSize;
+
+	void Initialzie() {
+		width = 0;
+		height = 0;
+		channels = 0;
+		imageSize = 0;
+	}
+
+	stBufferInfo() {
+		Initialzie();
+	}
+};

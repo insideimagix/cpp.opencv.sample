@@ -136,11 +136,15 @@
     <ClCompile Include="EventService\EventService.cpp" />
     <ClCompile Include="ImageService\ImageService.cpp" />
     <ClCompile Include="OpenCV_Sample_01.cpp" />
+    <ClCompile Include="VideoService\VideoService.cpp" />
+    <ClCompile Include="WindowService\WindowService.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CommonType.h" />
     <ClInclude Include="EventService\EventService.h" />
     <ClInclude Include="ImageService\ImageService.h" />
-    <ClInclude Include="ImageService\ImageType.h" />
+    <ClInclude Include="VideoService\VideoService.h" />
+    <ClInclude Include="WindowService\WindowService.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -25,6 +25,18 @@
     <Filter Include="헤더 파일\EventService">
       <UniqueIdentifier>{fad3831f-605e-4544-8d33-6135d8bfbec9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\WindowService">
+      <UniqueIdentifier>{93dfe4d6-619e-4cd8-a86d-4997a8047a15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\WindowService">
+      <UniqueIdentifier>{cc3d4284-45cc-44ae-8d73-ba75caedf884}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\VideoService">
+      <UniqueIdentifier>{f7fed1c7-4299-469a-9bb3-99616206fa6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\VideoService">
+      <UniqueIdentifier>{69cfb8a1-daae-4fcc-9e06-af5ad6d7b530}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="OpenCV_Sample_01.cpp">
@@ -36,16 +48,28 @@
     <ClCompile Include="EventService\EventService.cpp">
       <Filter>소스 파일\EventService</Filter>
     </ClCompile>
+    <ClCompile Include="WindowService\WindowService.cpp">
+      <Filter>소스 파일\WindowService</Filter>
+    </ClCompile>
+    <ClCompile Include="VideoService\VideoService.cpp">
+      <Filter>소스 파일\VideoService</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ImageService\ImageType.h">
-      <Filter>헤더 파일\ImageService</Filter>
-    </ClInclude>
     <ClInclude Include="ImageService\ImageService.h">
       <Filter>헤더 파일\ImageService</Filter>
     </ClInclude>
     <ClInclude Include="EventService\EventService.h">
       <Filter>헤더 파일\EventService</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowService\WindowService.h">
+      <Filter>헤더 파일\WindowService</Filter>
+    </ClInclude>
+    <ClInclude Include="CommonType.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="VideoService\VideoService.h">
+      <Filter>헤더 파일\VideoService</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

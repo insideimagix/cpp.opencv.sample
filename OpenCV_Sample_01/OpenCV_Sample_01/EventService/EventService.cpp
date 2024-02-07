@@ -1,4 +1,7 @@
 #include "EventService.h"
+#include <opencv2/opencv.hpp>
+
+using namespace cv;
 
 EventService::EventService() {
 }
@@ -6,6 +9,6 @@ EventService::EventService() {
 EventService::~EventService() {
 }
 
-void EventService::waitKeyEvent(int _delay) {
-	waitKey(_delay);
+int EventService::waitKeyEvent(int _delay) {
+	return waitKey(_delay);
 }

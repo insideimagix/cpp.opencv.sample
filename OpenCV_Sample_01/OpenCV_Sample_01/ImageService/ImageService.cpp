@@ -1,13 +1,9 @@
 #include "ImageService.h"
 
 ImageService::ImageService() {
-	m_windowName.clear();
 }
 
 ImageService::~ImageService() {
-	if (false == m_windowName.empty()) {
-		destroyWindow(m_windowName);
-	}
 }
 
 bool ImageService::OpenImage(const string& _fileName, const ecOpenFlag _openFlag) {
@@ -20,20 +16,51 @@ bool ImageService::OpenImage(const string& _fileName, const ecOpenFlag _openFlag
 	return true;
 }
 
-bool ImageService::ShowImage(const string& _windowsName, const ecWindowFlag _showFlag) {
+bool ImageService::ShowImage(const string& _windowName, const ecWindowFlag _showFlag) {
+	if (true == m_cvImage.empty()) {
+		cout << "Open된 이미지가 없습니다." << endl;
+		return false;
+	}
+
+	if (false == CreateWindow(_windowName, _showFlag)) {
+		cout << "\"" + _windowName + "\" 윈도우 생성에 실패하였습니다." << endl;
+		return false;
+	}
+
+	ShowInputArray(m_cvImage);
+	return true;
+}
+
+bool ImageService::GetBufferInfo(stBufferInfo& _info) const {
+	if (true == m_cvImage.empty()) {
+		cout << "Open된 이미지가 없습니다." << endl;
+		return false;
+	}
+
+	_info.Initialzie();
+
+	_info.width = m_cvImage.cols;
+	_info.height = m_cvImage.rows;
+	_info.channels = m_cvImage.channels();
+	_info.imageSize = m_cvImage.cols * m_cvImage.rows * m_cvImage.channels();
+
+	return true;
+}
+
+bool ImageService::GetBuffer(uint8_t* _pBuffer) {
 	if (m_cvImage.empty()) {
-		cout << "이미지 파일이 열려있지 않습니다." << endl;
+		cout << "Open된 이미지가 없습니다." << endl;
 		return false;
 	}
 
-	if (_windowsName.empty()) {
-		cout << "윈도우 창 이름이 설정되지 않았습니다." << endl;
-		return false;
+	if (nullptr != _pBuffer) {
+		delete [] _pBuffer;
+		_pBuffer = nullptr;
 	}
 
-	m_windowName = _windowsName;
-	namedWindow(m_windowName, ConvertWindowsFlag(_showFlag));
-	imshow(m_windowName, m_cvImage);
+	int imageSize = m_cvImage.cols * m_cvImage.rows * m_cvImage.channels();
+	_pBuffer = new uint8_t[imageSize];
+	memcpy(_pBuffer, m_cvImage.data, imageSize);
 
 	return true;
 }
@@ -69,37 +96,4 @@ int ImageService::ConvertOpenFlag(const ecOpenFlag _openFlag) const {
 	}
 
 	return cvOpenFlag;
-}
-
-int ImageService::ConvertWindowsFlag(const ecWindowFlag _windowFlag) const {
-	int cvWindowFlag = WindowFlags::WINDOW_AUTOSIZE;
-
-	if (_windowFlag >= ecWindowFlag::MAX) {
-		return cvWindowFlag;
-	}
-
-	switch (_windowFlag) {
-		case ecWindowFlag::DEFAULT:
-		case ecWindowFlag::WINDOW_AUTOSIZE: {
-			cvWindowFlag = WindowFlags::WINDOW_AUTOSIZE;
-		}
-		break;
-
-		case ecWindowFlag::WINDOW_NORMAL: {
-			cvWindowFlag = WindowFlags::WINDOW_NORMAL;
-		}
-		break;
-
-		case ecWindowFlag::WINDOW_OEPNGL: {
-			cvWindowFlag = WindowFlags::WINDOW_OPENGL;
-		}
-		break;
-
-		default: {
-			cvWindowFlag = WindowFlags::WINDOW_AUTOSIZE;
-		}
-		break;
-	}
-
-	return cvWindowFlag;
 }

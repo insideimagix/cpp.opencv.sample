@@ -1,24 +1,35 @@
 ﻿#include <iostream>
-#include "ImageService/ImageService.h""
-#include "EventService/EventService.h""
+#include "ImageService/ImageService.h"
+#include "VideoService/VideoService.h"
+#include "EventService/EventService.h"
 
 using namespace std;
 
 int main() {
-    ImageService testImage1;
-    ImageService testImage2;
+    ImageService testImage;
+    VideoService testCam;
     EventService eventHandle;
 
-    if (true == testImage1.OpenImage("test_image.png", ecOpenFlag::OPEN_COLOR)) {
-        testImage1.ShowImage("WINDOW_NORMAL", ecWindowFlag::WINDOW_NORMAL);
+    // TEST 1, image 출력
+#if (0)
+    if (true == testImage.OpenImage("test_image.png", ecOpenFlag::OPEN_COLOR)) {
+        testImage.ShowImage("IMAGE_TEST", ecWindowFlag::WINDOW_AUTOSIZE);
     }
 
-    if (true == testImage2.OpenImage("test_image.png", ecOpenFlag::OPEN_COLOR)) {
-        testImage2.ShowImage("WINDOW_AUTOSIZE", ecWindowFlag::WINDOW_AUTOSIZE);
+    eventHandle.waitKeyEvent(0);
+#endif
+
+    // TEST 2. video 출력
+    if (true == testCam.OpenVideo(0)) {
+       while (true) {
+            testCam.ShowVideo("VIDEO_TEST", ecWindowFlag::WINDOW_AUTOSIZE);
+            
+            if (27 == eventHandle.waitKeyEvent(10)) {
+                break;
+            }
+       }
     }
 
-
-    eventHandle.waitKeyEvent();
 
     return 0;
 }

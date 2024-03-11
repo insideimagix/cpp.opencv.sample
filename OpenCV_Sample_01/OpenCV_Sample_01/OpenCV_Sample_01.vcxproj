@@ -133,17 +133,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CoreService\ImageService\ImageService.cpp" />
+    <ClCompile Include="CoreService\UtilService\UtilService.cpp" />
+    <ClCompile Include="CoreService\VideoService\VideoService.cpp" />
     <ClCompile Include="EventService\EventService.cpp" />
-    <ClCompile Include="ImageService\ImageService.cpp" />
     <ClCompile Include="OpenCV_Sample_01.cpp" />
-    <ClCompile Include="VideoService\VideoService.cpp" />
     <ClCompile Include="WindowService\WindowService.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommonType.h" />
+    <ClInclude Include="CoreService\ImageService\ImageService.h" />
+    <ClInclude Include="CoreService\UtilService\UtilService.h" />
+    <ClInclude Include="CoreService\VideoService\VideoService.h" />
     <ClInclude Include="EventService\EventService.h" />
-    <ClInclude Include="ImageService\ImageService.h" />
-    <ClInclude Include="VideoService\VideoService.h" />
     <ClInclude Include="WindowService\WindowService.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

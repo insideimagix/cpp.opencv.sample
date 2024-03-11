@@ -1,8 +1,5 @@
 #pragma once
-
-#include <iostream>
-
-using namespace std;
+#include "../CommonType.h"
 
 class EventService
 {

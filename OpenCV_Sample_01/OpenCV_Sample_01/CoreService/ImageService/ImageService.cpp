@@ -6,7 +6,7 @@ ImageService::ImageService() {
 ImageService::~ImageService() {
 }
 
-bool ImageService::OpenImage(const string& _fileName, const ecOpenFlag _openFlag) {
+bool ImageService::OpenImageFile(const string& _fileName, const ecOpenFlag _openFlag) {
 	m_cvImage = imread(_fileName, ConvertOpenFlag(_openFlag));
 	if (m_cvImage.empty()) {
 		cout << "\"" + _fileName + "\" 파일을 읽을 수 없습니다." << endl;
@@ -16,24 +16,19 @@ bool ImageService::OpenImage(const string& _fileName, const ecOpenFlag _openFlag
 	return true;
 }
 
-bool ImageService::ShowImage(const string& _windowName, const ecWindowFlag _showFlag) {
-	if (true == m_cvImage.empty()) {
-		cout << "Open된 이미지가 없습니다." << endl;
+bool ImageService::GetImageBuffer(Mat& _cvImage) const {
+	if (m_cvImage.empty()) {
+		cout << "열려있는 이미지 파일이 없습니다." << endl;
 		return false;
 	}
 
-	if (false == CreateWindow(_windowName, _showFlag)) {
-		cout << "\"" + _windowName + "\" 윈도우 생성에 실패하였습니다." << endl;
-		return false;
-	}
-
-	ShowInputArray(m_cvImage);
+	_cvImage = m_cvImage;
 	return true;
 }
 
-bool ImageService::GetBufferInfo(stBufferInfo& _info) const {
+bool ImageService::GetImageBuffer(stBufferInfo& _info) const {
 	if (true == m_cvImage.empty()) {
-		cout << "Open된 이미지가 없습니다." << endl;
+		cout << "열려있는 이미지 파일이 없습니다." << endl;
 		return false;
 	}
 
@@ -47,14 +42,14 @@ bool ImageService::GetBufferInfo(stBufferInfo& _info) const {
 	return true;
 }
 
-bool ImageService::GetBuffer(uint8_t* _pBuffer) {
+bool ImageService::GetImageBuffer(uint8_t* _pBuffer) const {
 	if (m_cvImage.empty()) {
-		cout << "Open된 이미지가 없습니다." << endl;
+		cout << "열려있는 이미지 파일이 없습니다." << endl;
 		return false;
 	}
 
 	if (nullptr != _pBuffer) {
-		delete [] _pBuffer;
+		delete[] _pBuffer;
 		_pBuffer = nullptr;
 	}
 

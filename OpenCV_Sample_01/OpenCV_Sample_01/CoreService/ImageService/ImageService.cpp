@@ -32,8 +32,6 @@ bool ImageService::GetImageBuffer(stBufferInfo& _info) const {
 		return false;
 	}
 
-	_info.Initialzie();
-
 	_info.width = m_cvImage.cols;
 	_info.height = m_cvImage.rows;
 	_info.channels = m_cvImage.channels();

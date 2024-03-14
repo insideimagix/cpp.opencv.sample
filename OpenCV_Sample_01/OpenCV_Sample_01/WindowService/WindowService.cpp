@@ -96,64 +96,135 @@ bool WindowService::ShowVideo() {
 	return true;
 }
 
-bool WindowService::AddLine(const Point _pt1, const Point _pt2, const Scalar& _color, const int _thickness, const ecLineType _lineType, const int _shift) {
+bool WindowService::AddLine(const Point _pt1, const Point _pt2, const stDrawOptions& _options) {
 	if (true == m_cvImage.empty()) {
 		cout << "이미지가 존재하지 않습니다." << endl;
 		return false;
 	}
 
-	DrawNormalLine(m_cvImage, _pt1, _pt2, _color, _thickness, _lineType, _shift);
+	DrawNormalLine(m_cvImage, _pt1, _pt2, _options.color, _options.thickness, _options.lineType, _options.bitShift);
 	return true;
 }
 
-bool WindowService::AddArrowedLine(const Point _pt1, const Point _pt2, const Scalar& _color, const int _thickness, const double _tipLength, const ecLineType _lineType, const int _shift) {
+bool WindowService::AddArrowedLine(const Point _pt1, const Point _pt2, const double _tipLength, const stDrawOptions& _options) {
 	if (true == m_cvImage.empty()) {
 		cout << "이미지가 존재하지 않습니다." << endl;
 		return false;
 	}
 
-	DrawArrowedLine(m_cvImage, _pt1, _pt2, _color, _thickness, _tipLength, _lineType, _shift);
+	DrawArrowedLine(m_cvImage, _pt1, _pt2, _options.color, _options.thickness, _tipLength, _options.lineType, _options.bitShift);
 	return true;
 }
 
-bool WindowService::AddRectangle(const Point _pt1, const Point _pt2, const Scalar& _color, const int _thickness, const ecLineType _lineType, const int _shift) {
+bool WindowService::AddRectangle(const Point _pt1, const Point _pt2, const stDrawOptions& _options) {
 	if (true == m_cvImage.empty()) {
 		cout << "이미지가 존재하지 않습니다." << endl;
 		return false;
 	}
 
-	DrawRectangle(m_cvImage, _pt1, _pt2, _color, _thickness, _lineType, _shift);
+	DrawRectangle(m_cvImage, _pt1, _pt2, _options.color, _options.thickness, _options.lineType, _options.bitShift);
 	return true;
 }
 
-bool WindowService::AddRectangle(const Rect _rect, const Scalar& _color, const int _thickness, const ecLineType _lineType, const int _shift) {
+bool WindowService::AddRectangle(const Rect _rect, const const stDrawOptions& _options) {
 	if (true == m_cvImage.empty()) {
 		cout << "이미지가 존재하지 않습니다." << endl;
 		return false;
 	}
 
-	DrawRectangle(m_cvImage, _rect, _color, _thickness, _lineType, _shift);
+	DrawRectangle(m_cvImage, _rect, _options.color, _options.thickness, _options.lineType, _options.bitShift);
 	return true;
 }
 
-bool WindowService::AddCircle(const Point _center, const int _radius, const Scalar& _color, const int _thickness, const ecLineType _lineType, const int _shift) {
+bool WindowService::AddRotatedRect(const RotatedRect _rect, const const stDrawOptions& _options) {
 	if (true == m_cvImage.empty()) {
 		cout << "이미지가 존재하지 않습니다." << endl;
 		return false;
 	}
 
-	DrawCircle(m_cvImage, _center, _radius, _color, _thickness, _lineType, _shift);
+	DrawRotatedRect(m_cvImage, _rect, _options.color, _options.thickness, _options.lineType, _options.bitShift);
 	return true;
 }
 
-bool WindowService::AddMarker(const Point _pt, const Scalar& _color, const ecMarkerType _markerType, const int _markerSize, const int _thickness, const ecLineType _lineType) {
+bool WindowService::AddCircle(const Point _center, const int _radius, const const stDrawOptions& _options) {
 	if (true == m_cvImage.empty()) {
 		cout << "이미지가 존재하지 않습니다." << endl;
 		return false;
 	}
 
-	DrawMarker(m_cvImage, _pt, _color, _markerType, _markerSize, _thickness, _lineType);
+	DrawCircle(m_cvImage, _center, _radius, _options.color, _options.thickness, _options.lineType, _options.bitShift);
 	return true;
+}
+
+bool WindowService::AddEllipse(const Point _center, const Size _axes, const double _angle, const double _startAngle, const double _endAngle, const const stDrawOptions& _options) {
+	if (true == m_cvImage.empty()) {
+		cout << "이미지가 존재하지 않습니다." << endl;
+		return false;
+	}
+
+	DrawEllipse(m_cvImage, _center, _axes, _angle, _startAngle, _endAngle, _options.color, _options.thickness, _options.lineType, _options.bitShift);
+	return true;
+}
+
+bool WindowService::AddEllipse(const RotatedRect _rect, const const stDrawOptions& _options) {
+	if (true == m_cvImage.empty()) {
+		cout << "이미지가 존재하지 않습니다." << endl;
+		return false;
+	}
+
+	DrawEllipse(m_cvImage, _rect, _options.color, _options.thickness, _options.lineType);
+	return true;
+}
+
+bool WindowService::AddPloyline(const Point** _pts, const int* _npts, const int _ncontours, const bool _isClosed, const const stDrawOptions& _options) {
+	if (true == m_cvImage.empty()) {
+		cout << "이미지가 존재하지 않습니다." << endl;
+		return false;
+	}
+
+	if (true == _options.isFilled) {
+		DrawFillPloy(m_cvImage, _pts, _npts, _ncontours, _options.color, _options.lineType, _options.bitShift, _options.offset);
+	}
+	else {
+		DrawPloyline(m_cvImage, _pts, _npts, _ncontours, _isClosed, _options.color, _options.thickness, _options.lineType, _options.bitShift);
+	}
+	
+	return true;
+}
+
+bool WindowService::AddPloyline(const InputArrayOfArrays _pts, const bool _isClosed, const const stDrawOptions& _options) {
+	if (true == m_cvImage.empty()) {
+		cout << "이미지가 존재하지 않습니다." << endl;
+		return false;
+	}
+
+	if (true == _options.isFilled) {
+		DrawFillPloy(m_cvImage, _pts, _options.color, _options.lineType, _options.bitShift, _options.offset);
+	}
+	else {
+		DrawPloyline(m_cvImage, _pts, _isClosed, _options.color, _options.thickness, _options.lineType, _options.bitShift);
+	}
+
+	return true;
+}
+
+bool WindowService::AddMarker(const Point _pt, const ecMarkerType _markerType, const int _markerSize, const const stDrawOptions& _options) {
+	if (true == m_cvImage.empty()) {
+		cout << "이미지가 존재하지 않습니다." << endl;
+		return false;
+	}
+
+	DrawMarker(m_cvImage, _pt, _options.color, _markerType, _markerSize, _options.thickness, _options.lineType);
+	return true;
+}
+
+bool WindowService::AddText(const String& _text, const Point _org, const stFontOptions _fontOptions, const stDrawOptions& _options) {
+	if (true == m_cvImage.empty()) {
+		cout << "이미지가 존재하지 않습니다." << endl;
+		return false;
+	}
+
+	DrawText(m_cvImage, _text, _org, _fontOptions.fontType, _fontOptions.fontScale, _options.color, _options.thickness, _options.lineType, _fontOptions.bottomLeftOrigin);
 }
 
 void WindowService::ShowArray(const Mat& _array) const {

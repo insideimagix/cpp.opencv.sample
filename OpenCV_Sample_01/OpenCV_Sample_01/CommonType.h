@@ -42,20 +42,132 @@ enum class ecMarkerType {
 	MAX,
 };
 
-struct stBufferInfo {
-	int width;
-	int height;
-	int channels;
-	int imageSize;
+enum class ecFontType {
+	DEFAULT= 0,
+	FONT_SIMPLEX,
+	FONT_PLAIN,
+	FONT_DUPLEX,
+	FONT_COMPLEX,
+	FONT_TRIPLEX,
+	FONT_COMPLEX_SMALL,
+	FONT_SCRIPT_SIMPLEX,
+	FONT_SCRIPT_COMPLEX,
+	FONT_ITALIC,
+	MAX,
+};
 
-	void Initialzie() {
+struct stBufferInfo {
+	int			width;
+	int			height;
+	int			channels;
+	int			imageSize;
+
+	stBufferInfo() {
 		width = 0;
 		height = 0;
 		channels = 0;
 		imageSize = 0;
 	}
+};
 
-	stBufferInfo() {
-		Initialzie();
+struct stDrawOptions {
+	Scalar		color;
+	int			thickness;
+	ecLineType	lineType;
+	int			bitShift;
+	bool		isFilled;
+	Point		offset;
+
+	stDrawOptions() {
+		color = Scalar(0, 0, 0);
+		thickness = 1;
+		lineType = ecLineType::DEFAULT;
+		bitShift = 0;
+		isFilled = false;
+		offset = Point();
+	}
+
+	stDrawOptions(Scalar _color) {
+		color = _color;
+		thickness = 1;
+		lineType = ecLineType::DEFAULT;
+		bitShift = 0;
+		isFilled = false;
+		offset = Point();
+	}
+
+	stDrawOptions(Scalar _color, int _thickness) {
+		color = _color;
+		thickness = _thickness;
+		lineType = ecLineType::DEFAULT;
+		bitShift = 0;
+		isFilled = false;
+		offset = Point();
+	}
+
+	stDrawOptions(Scalar _color, int _thickness, ecLineType	_lineType) {
+		color = _color;
+		thickness = _thickness;
+		lineType = _lineType;
+		bitShift = 0;
+		isFilled = false;
+		offset = Point();
+	}
+
+	stDrawOptions(Scalar _color, int _thickness, ecLineType	_lineType, int _bitShift) {
+		color = _color;
+		thickness = _thickness;
+		lineType = _lineType;
+		bitShift = _bitShift;
+		isFilled = false;
+		offset = Point();
+	}
+
+	stDrawOptions(Scalar _color, int _thickness, ecLineType	_lineType, int _bitShift, bool _isFilled) {
+		color = _color;
+		thickness = _thickness;
+		lineType = _lineType;
+		bitShift = _bitShift;
+		isFilled = _isFilled;
+		offset = Point();
+	}
+
+	stDrawOptions(Scalar _color, int _thickness, ecLineType	_lineType, int _bitShift, bool _isFilled, Point _offset) {
+		color = _color;
+		thickness = _thickness;
+		lineType = _lineType;
+		bitShift = _bitShift;
+		isFilled = _isFilled;
+		offset = _offset;
+	}
+};
+
+struct stFontOptions {
+	ecFontType	fontType;
+	double		fontScale;
+	bool		bottomLeftOrigin;
+
+	stFontOptions() {
+		fontType = ecFontType::DEFAULT;
+		fontScale = 1;
+		bottomLeftOrigin = false;
+	}
+
+	stFontOptions(ecFontType _fontType) {
+		fontType = _fontType;
+		fontScale = 1;
+		bottomLeftOrigin = false;
+	}
+
+	stFontOptions(ecFontType _fontType, double _fontScale) {
+		fontType = _fontType;
+		fontScale = _fontScale;
+		bottomLeftOrigin = false;
+	}
+
+	stFontOptions(ecFontType _fontType, double _fontScale, bool _bottomLeftOrigin) {
+		fontType = _fontType;
+		fontScale = _fontScale;
+		bottomLeftOrigin = _bottomLeftOrigin;
 	}
 };
